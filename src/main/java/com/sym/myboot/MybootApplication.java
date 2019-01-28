@@ -14,7 +14,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories("com.sym.myboot.dao")
 @EntityScan("com.sym.myboot.entity")
 /**mybatis扫描**/
-@MapperScan("com.sym.myboot.mapper")
+//@MapperScan("com.sym.myboot.mapper")
 public class MybootApplication {
 
     public static void main(String[] args) {

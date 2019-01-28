@@ -28,7 +28,7 @@ public class UserController {
 
     @RequestMapping("/selectAll")
     public List<User> selectAll(){
-        List<User> list = userService.selectAll();
+        List<User> list = userService.selectAll2();
         return list;
     }
 }

@@ -1,4 +1,4 @@
-package com.sym.myboot.mapper;
+package com.sym.myboot.mapper.master;
 
 import com.sym.myboot.entity.User;
 
@@ -11,6 +11,6 @@ import java.util.List;
  * @Description:
  * @Version:
  */
-public interface UserMapper {
+public interface MasterUserMapper {
     List<User> selectAll();
 }

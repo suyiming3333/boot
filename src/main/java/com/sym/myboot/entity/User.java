@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.Date;
 
-@Entity(name = "sys_user")
+@Entity(name = "user")
 public class User {
     @Id
     private String id;
