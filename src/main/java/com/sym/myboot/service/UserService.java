@@ -2,9 +2,12 @@ package com.sym.myboot.service;
 
 import com.sym.myboot.dao.UserDao;
 import com.sym.myboot.entity.User;
+import com.sym.myboot.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UserService {
@@ -13,6 +16,9 @@ public class UserService {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private UserMapper userMapper;
 
     public void createUser(String id,String name, Integer age) {
         System.out.println("createUser");
@@ -30,7 +36,11 @@ public class UserService {
         user.setId("10087");
         user.setName("asudasd");
         userDao.save(user);
+    }
 
+    public List<User> selectAll(){
+        List<User> list = userMapper.selectAll();
+        return list;
     }
 
 }
