@@ -33,6 +33,20 @@
     </select>
 
     <select id="selectAll" resultType="com.sym.myboot.entity.User">
-        select * from user
+        select * from sys_user
     </select>
+
+    <select id="getUserById" resultType="com.sym.myboot.entity.User">
+        select * from sys_user where id = #{id}
+    </select>
+
+    <update id="updateUserById" parameterType="com.sym.myboot.entity.User">
+        update sys_user
+        <trim prefix="set" suffixOverrides=",">
+            <if test="name !=null">name = #{name},</if>
+            <if test="age !=null">age = #{age},</if>
+            <if test="type !=null">type = #{type},</if>
+        </trim>
+        where id = #{id}
+    </update>
 </mapper>

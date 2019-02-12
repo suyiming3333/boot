@@ -6,6 +6,8 @@ import com.sym.myboot.mapper.UserMapper;
 import com.sym.myboot.mapper.master.MasterUserMapper;
 import com.sym.myboot.mapper.slave.SlaveUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
@@ -34,8 +36,16 @@ public class UserService {
         System.out.println("创建用户成功...");
     }
 
-    public User getUserById(Integer id) {
-        User user = userDao.findOne(id);
+    @Cacheable(value = "baseCache",key = "#id")
+    public User getUserById(String id) {
+        User user = masterUserMapper.getUserById(Integer.valueOf(id));
+        //User user = userDao.findOne(id);
+        return user;
+    }
+
+    @CachePut(value = "baseCache",key = "#user.id")
+    public User updateUserById(User user){
+        masterUserMapper.updateUserById(user);
         return user;
     }
 
@@ -46,10 +56,12 @@ public class UserService {
         userDao.save(user);
     }
 
+    @Cacheable(value = "baseCache",key = "#root.targetClass")
     public List<User> selectAll1(){
         List<User> list = masterUserMapper.selectAll();
         return list;
     }
+
 
     public List<User> selectAll2(){
         List<User> list = slaveUserMapper.selectAll();
