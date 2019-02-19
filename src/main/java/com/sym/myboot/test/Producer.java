@@ -12,29 +12,30 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @Version:
  */
 public class Producer implements Runnable {
+
     private volatile boolean isRunning = true;
+
     private BlockingQueue<Integer> queue;// 内存缓冲区
-    private static AtomicInteger count = new AtomicInteger();// 总数 原子操作
+
     private static final int SLEEPTIME = 1000;
 
     private Thread thread;
 
 
-    public Producer(BlockingQueue<Integer> queue,AtomicInteger count) {
+    public Producer(BlockingQueue<Integer> queue) {
         this.queue = queue;
-        this.count = count;
     }
 
     @Override
-    public synchronized void run() {
+    public void run() {
         Random r = new Random();
-        System.out.println("start producting id:" + Thread.currentThread().getName());
+        System.out.println("start producting thread name:" + Thread.currentThread().getName());
         try {
             while (isRunning) {
                 Thread.sleep(r.nextInt(SLEEPTIME));
                 int i = r.nextInt();
                 queue.put(i);
-                System.out.println(i+"入队列成功，当前队列大小为："+count.incrementAndGet());
+                System.out.println(i+"入队列成功，当前队列大小为："+queue.size());
 
             }
         } catch (InterruptedException e) {

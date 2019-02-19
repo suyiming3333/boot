@@ -13,25 +13,23 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class Consumer implements Runnable{
     private BlockingQueue<Integer> queue;
-    private static final int SLEEPTIME = 1000;
+    private static final int SLEEPTIME = 3000;
     private volatile boolean isRunning = true;
-    private static AtomicInteger count = new AtomicInteger();// 总数 原子操作
 
     private Thread thread;
 
-    public Consumer(BlockingQueue<Integer> queue,AtomicInteger count){
+    public Consumer(BlockingQueue<Integer> queue){
         this.queue = queue;
-        this.count = count;
     }
 
     @Override
-    public synchronized void run() {
+    public void run() {
         System.out.println("start Consumer id :"+Thread.currentThread().getName());
         Random r = new Random();
         try{
             while(true){
                 Integer j = queue.take();
-                System.out.println(j+"被消费,队列大小："+count.decrementAndGet());
+                System.out.println(j+"被消费,队列大小："+queue.size());
                 Thread.sleep(r.nextInt(SLEEPTIME));
             }
         }catch (InterruptedException e) {

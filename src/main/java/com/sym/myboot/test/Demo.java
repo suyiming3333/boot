@@ -1,9 +1,6 @@
 package com.sym.myboot.test;
 
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -15,15 +12,13 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class Demo {
 
-    private static AtomicInteger count = new AtomicInteger();// 总数 原子操作
-
     public static void main(String[] args) throws InterruptedException {
-        BlockingQueue<Integer> queue = new LinkedBlockingDeque<>(10);
+        BlockingQueue<Integer> queue = new LinkedBlockingQueue<>(10);
 
-        Producer p1 = new Producer(queue,count);
-        Producer p2 = new Producer(queue,count);
+        Producer p1 = new Producer(queue);
+        Producer p2 = new Producer(queue);
 
-        Consumer c1 = new Consumer(queue,count);
+        Consumer c1 = new Consumer(queue);
 
         p1.start();
         p2.start();
@@ -33,6 +28,6 @@ public class Demo {
         p1.stop();
         p2.stop();
         //c1.stop();
-        Thread.sleep(3000);
+        //Thread.sleep(3000);
     }
 }
